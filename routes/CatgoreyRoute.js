@@ -5,7 +5,6 @@ const {
   createCategory,
   updateCategory,
   deleteCategory,
-  getCategoryDetails,
 } = require("../controllers/categoryControllers");
 const singleUpload = require("../middleware/multer");
 
@@ -16,7 +15,7 @@ router.route("/getCategory").get(getAllCategory);
 
 //creat new category
 router
-  .route("/admin/category/new").post(isAuthanticatedUser, authorizedRole("admin"),singleUpload,createCategory);
+  .route("/admin/category/new").post(isAuthanticatedUser, authorizedRole("admin"), singleUpload, createCategory);
 
 router
   .route("/Category/:id")
