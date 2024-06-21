@@ -1,5 +1,5 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
-const ErrorHander = require("../utils/errorHander");
+const ErrorHander = require("./../utils/errorHander");
 const FrequentlyQuestions = require("../models/faqModels")
 
 exports.FrequentlyQuestionsPost = catchAsyncError(async (req, res, next) => {

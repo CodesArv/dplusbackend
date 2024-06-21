@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const privacyPolicy = require("../models/privacy&PolicyModels");
-const ErrorHander = require("../utils/errorHander");
+const ErrorHander = require("./../utils/errorHander");
 
 exports.privacyPolicy = catchAsyncError(async (req, res, next) => {
   req.body.user = req.user.id;

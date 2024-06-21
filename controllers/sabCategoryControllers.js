@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const subCategoryModel = require("../models/sabCategoryModels");
-const ErrorHander = require("../utils/errorHander");
+const ErrorHander = require("./../utils/errorHander");
 const cloudinary = require("cloudinary");
 const getDataUri = require("../utils/dataUri");
 
