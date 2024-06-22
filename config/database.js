@@ -7,8 +7,9 @@ const connectDatabse = ( ) =>{
         .then((data) => {
         
             console.log(`mongodb connected with sever: ${data. connection. host}`);
+            console.log(process.env.PORT ||5000,"hjhjhj")
         }).catch((err)=>{
-console.log(err)
+       console.log(err)
         })
       
 }
