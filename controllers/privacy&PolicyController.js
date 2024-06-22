@@ -5,7 +5,6 @@ const ErrorHander = require("./../utils/errorHander");
 exports.privacyPolicy = catchAsyncError(async (req, res, next) => {
   req.body.user = req.user.id;
   const privacyAndPolicy = await privacyPolicy.create(req.body);
-  console.log(privacyAndPolicy, "mm");
   res.status(201).json({
     success: true,
     privacyAndPolicy,
@@ -20,7 +19,6 @@ exports.getPrivacyPolicy = catchAsyncError(async (req, res, next) => {
 });
 exports.updateprivacyPolicy = catchAsyncError(async (req, res, next) => {
   let privacyandPolicy = await privacyPolicy.findById(req.params.id);
-  console.log(privacyandPolicy, "jj");
   if (!privacyandPolicy) {
     return next(new ErrorHander("privacy Policy not found", 404));
   }

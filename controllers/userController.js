@@ -55,7 +55,6 @@ exports.logoutUser = catchAsyncError(async (req, res, next) => {
 
 exports.getUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  console.log(user, "llddd");
   res.status(200).json({
     success: true,
     user,
@@ -71,7 +70,6 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 // Forgot Password
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log(user,"jjggg")
   
 
   if (!user) {
