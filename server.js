@@ -7,7 +7,7 @@ const http = require("http")
 
 
 process.on("uncaughtException",(err)=>{
-    console.log('Error: ${err.message}');
+    console.log('Error: ${err.message}'); 
     console.log('server was shutdown ');
         process.exit(1);
  
