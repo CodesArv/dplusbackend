@@ -1,8 +1,9 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const bookingModels = require("../models/bookingModels");
-const ErrorHander = require("./../utils/errorHander");
+const ErrorHander = require("../utils/errorHander");
 
 exports.CreateBooking = catchAsyncError(async (req, res, next) => {
+    console.log(req.user, "jjJKJKKJ");
     req.body.user = req.user.id;
     const Booking = await bookingModels.create(req.body);
     const bookingFormateData = {
@@ -54,6 +55,8 @@ exports.getBookings = catchAsyncError(async(req,res,next)=>{
 
 exports.updateBooking = catchAsyncError(async (req, res, next) => {
     let updateBooking = await bookingModels.findById(req.params.id);
+     console.log(updateBooking,"kkkkk")
+     console.log(req.params.id,"hjhh")
     if (!updateBooking) {
         return next(new ErrorHander("Booking not found", 404));
     }

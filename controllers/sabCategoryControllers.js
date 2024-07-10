@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const subCategoryModel = require("../models/sabCategoryModels");
-const ErrorHander = require("./../utils/errorHander");
+const ErrorHander = require("../utils/errorHander");
 const cloudinary = require("cloudinary");
 const getDataUri = require("../utils/dataUri");
 
@@ -8,7 +8,9 @@ const getDataUri = require("../utils/dataUri");
 exports.createSubCategory = catchAsyncError(async (req, res, next) => {
   const file = req.file;
   const fileUri = getDataUri(file);
+  console.log(fileUri, "gvgyuugygb");
   const myCloud = await cloudinary.uploader.upload(fileUri.content, {});
+  console.log(myCloud, "rggrt");
   const SubCategory = await subCategoryModel.create({
     categoryId: req.body.categoryId,
     SubcategoryTitle: req.body.SubcategoryTitle,

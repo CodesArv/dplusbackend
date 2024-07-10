@@ -1,8 +1,9 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const userBasicInfo = require("../models/basicInfoModels");
-const ErrorHander = require("./../utils/errorHander");
+const ErrorHander = require("../utils/errorHander");
 
 exports.basicInfo = catchAsyncError(async (req, res, next) => {
+  console.log(req.user, "jj");
   req.body.user = req.user.id;
   const BasicInfo = await userBasicInfo.create(req.body);
   res.status(201).json({

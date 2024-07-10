@@ -1,4 +1,4 @@
-const ErrorHander = require("./../utils/errorHander")
+const ErrorHander = require("../Utils/errorhander");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Features = require("../utils/features");
 const CategoryModel = require("../models/CategoryModels");
@@ -10,9 +10,11 @@ const getDataUri = require("../utils/dataUri");
 exports.createCategory = catchAsyncError(async (req, res, next) => {
   const file = req.file;
   const fileUri = getDataUri(file);
+   console.log(fileUri,"gvgyuugygb")
   const myCloud = await cloudinary.uploader.upload(fileUri.content, {
    // folder: 'CategoryImg'
   });
+  console.log(myCloud,"rggrt")
   const newCategory = await CategoryModel.create({
     title: req.body.title,
     description: req.body.description,
@@ -22,6 +24,7 @@ exports.createCategory = catchAsyncError(async (req, res, next) => {
     }, 
     user: req.user.id
   });
+  console.log(newCategory,"gghgh")
 
   res.status(201).json({
     success: true,

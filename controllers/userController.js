@@ -1,9 +1,10 @@
-const ErrorHandler = require("./../utils/errorHander");
+const ErrorHandler = require("../utils/errorHander");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const User = require("../models/userModels");
 const crypto = require('crypto');
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail")
+const UAParser = require('ua-parser-js');
 
 // Register a user
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -17,23 +18,33 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 });
 
 // Login user
+
 exports.loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new ErrorHandler("Please enter email & password", 400));
   }
+  
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
     return next(new ErrorHandler("Invalid email and password", 401));
   }
+  
   const isPasswordMatched = await user.comparePassword(password);
-
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid email and password", 401));
   }
 
-  const token = user.getJWTToken();
+  const parser = new UAParser();
+  const ua = parser.setUA(req.headers['user-agent']).getResult();
+  const deviceType = ua.device.type || 'unknown';
+  const browserType = ua.browser.name || 'unknown';
+  user.deviceType = deviceType;
+  user.browserType = browserType;
+  await user.save();
 
+  const token = user.getJWTToken();
+  
   res.status(201).json({
     user,
     success: true,
@@ -55,6 +66,7 @@ exports.logoutUser = catchAsyncError(async (req, res, next) => {
 
 exports.getUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id);
+  console.log(user, "llddd");
   res.status(200).json({
     success: true,
     user,
@@ -70,6 +82,7 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 // Forgot Password
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
+
   
 
   if (!user) {

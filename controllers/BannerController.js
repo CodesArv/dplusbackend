@@ -3,7 +3,7 @@ const cloudinary = require("cloudinary");
 const getDataUri = require("../utils/dataUri");
 const BannerModel = require("../models/BannerModel");
 const Features = require("../utils/features");
-const ErrorHander = require("./../utils/errorHander");
+const ErrorHander = require("../Utils/errorhander");
 
 
 // ------bannerCreate post Api------
@@ -12,6 +12,7 @@ exports.BannerCreate = catchAsyncError(async (req, res, next) => {
   const file = req.file;
   const fileUri = getDataUri(file);
   const myCloud = await cloudinary.uploader.upload(fileUri.content, {});
+  console.log(myCloud, "rggrt");
   const BannerCreated = await BannerModel.create({
     image: {
       public_id: myCloud.public_id,
@@ -28,6 +29,7 @@ exports.BannerCreate = catchAsyncError(async (req, res, next) => {
 // ------get banner api------
 
 exports.getBanner = catchAsyncError(async (req, res, next) => {
+
   const apiFeature = new Features(BannerModel.find(), req.query)
     .search()
     .filter();
