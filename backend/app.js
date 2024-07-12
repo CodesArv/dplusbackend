@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 app.use(express.json());
 const ssss = app.use(cookieParser());
 app.use(cors());
-const errorMiddleware = require("./middleware/error")
+const errorMiddleware = require("./Middleware/error")
 // console.log(ssss, "ffff")
 const user = require("./routes/userRoute");
 const category = require("./routes/CatgoreyRoute")
